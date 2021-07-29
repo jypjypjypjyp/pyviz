@@ -1,0 +1,8 @@
+<launch>
+    <node name="pyviz" pkg="pyviz" type="pyviz_node" output="screen">
+        <!-- <param name="type" value="sftp"/>
+        <param name="path" value="sftp://username:passwd@ip_address:port/path"/> "//" repersents that searching path from "/"-->
+        <!-- <param name="type" value="local"/>
+        <param name="path" value="local path"/> -->
+    </node>
+</launch>

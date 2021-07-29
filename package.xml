@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>pyviz</name>
+  <version>0.1.0</version>
+  <description>pyviz</description>
+
+  <maintainer email="jypjypjypjyp@hotmail.com">jyp</maintainer>
+
+  <author email="jypjypjypjyp@hotmail.com">jyp</author>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <depend>visualization_msgs</depend>
+  <depend>geometry_msgs</depend>
+
+</package>
