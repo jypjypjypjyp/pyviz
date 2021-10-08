@@ -1,6 +1,6 @@
 # Easy Debug Visualizer For Every Project
 
-This is a simple debug visualizer for every project as long as it can write files, which can generate 3D geometries simultaneously. Remote files are also supported.
+This is a simple debug visualizer for every project as long as it can write files, which can build 3D geometries in Rviz by reading text. Remote files are also supported.
 
 ## Dependencies
 
