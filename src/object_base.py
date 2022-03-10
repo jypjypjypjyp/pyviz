@@ -7,7 +7,6 @@ import copy
 
 
 class MessageWithParam:
-
     def __init__(self, msg: genpy.Message, **kwds):
         for k, v in kwds.items():
             setattr(self, k, v)
@@ -49,7 +48,7 @@ class Line(ObjectBase):
     def create_msg(ts, *param):
         lines = Marker()
         lines.header.stamp = ts
-        lines.header.frame_id = 'world'
+        lines.header.frame_id = "world"
         lines.type = Marker.LINE_LIST
         lines.id = 999999999
         lines.action = Marker.MODIFY
@@ -85,7 +84,7 @@ class Frame(ObjectBase):
     def create_msg(ts, *param):
         poses = PoseArray()
         poses.header.stamp = ts
-        poses.header.frame_id = 'world'
+        poses.header.frame_id = "world"
         return poses
 
     def msg_type():
@@ -108,13 +107,13 @@ class PointV(ObjectBase):
     def create_msg(ts, *param):
         points = Marker()
         points.header.stamp = ts
-        points.header.frame_id = 'world'
+        points.header.frame_id = "world"
         points.type = Marker.POINTS
         points.id = 999999998
         points.action = Marker.MODIFY
         points.pose.orientation.w = 1
-        points.scale.x = 0.1
-        points.scale.y = 0.1
+        points.scale.x = 0.2
+        points.scale.y = 0.2
         points.color.r = param[0]
         points.color.g = param[1]
         points.color.b = param[2]
@@ -130,11 +129,11 @@ class Text(ObjectBase):
 
     @classmethod
     def init_template(cls):
-        cls.marker_template.header.frame_id = 'world'
+        cls.marker_template.header.frame_id = "world"
         cls.marker_template.type = Marker.TEXT_VIEW_FACING
         cls.marker_template.action = Marker.MODIFY
         cls.marker_template.pose.orientation.w = 1
-        cls.marker_template.scale.z = 0.1
+        cls.marker_template.scale.z = 1
         cls.marker_template.color.a = 1
 
     def __init__(self, object_split):
@@ -162,8 +161,7 @@ class Text(ObjectBase):
     def create_msg(ts, *param):
         aaa = MarkerArray()
         aaa.markers = []
-        text_array = MessageWithParam(aaa,
-                                      ts=ts, r=param[0], g=param[1], b=param[2])
+        text_array = MessageWithParam(aaa, ts=ts, r=param[0], g=param[1], b=param[2])
         return text_array
 
     def msg_type():

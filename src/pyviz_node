@@ -1,4 +1,4 @@
-#!/home/jyp/.miniconda3/envs/lab/bin/python
+#!/home/jyp/miniconda3/envs/lab/bin/python
 import rospy
 from open_sftp import open_sftp
 from object_base import *
@@ -12,18 +12,17 @@ def create_obj(object_split) -> ObjectBase:
 
 class Visualizer:
     def __init__(self):
-        rospy.init_node('pyviz_node', anonymous=True)
+        rospy.init_node("pyviz_node", anonymous=True)
         self.type_pub_map = {}
         self.type_msg_map = {}
         for t, config in type_config_map.items():
             self.type_msg_map[t] = None
-            self.type_pub_map[t] = rospy.Publisher(
-                t, config[0].msg_type(), queue_size=10)
-        self.rate = rospy.Rate(10)  # 10hz
-        self.type = rospy.get_param('~type')
-        self.path = rospy.get_param('~path')
+            self.type_pub_map[t] = rospy.Publisher(t, config[0].msg_type(), queue_size=10)
+        self.rate = rospy.Rate(1)  # 1hz
+        self.type = rospy.get_param("~type")
+        self.path = rospy.get_param("~path")
         self.objects = {}
-        self.open_method = {'local': open, 'sftp': open_sftp}
+        self.open_method = {"local": open, "sftp": open_sftp}
 
     def draw(self):
         with self.open_method[self.type](self.path) as file:
@@ -42,13 +41,13 @@ class Visualizer:
                     for c in buffer:
                         if type(c) is not str:
                             c = chr(c)
-                        if not start and c == '#':
+                        if not start and c == "#":
                             start = True
                             object_char_list = []
-                        elif start and c == '&':
+                        elif start and c == "&":
                             start = False
-                            object_str = ''.join(object_char_list)
-                            object_split = object_str.split(',')
+                            object_str = "".join(object_char_list)
+                            object_split = object_str.split(",")
                             new_object = create_obj(object_split)
                             self.objects[new_object.id] = new_object
                         elif start:
@@ -57,8 +56,7 @@ class Visualizer:
                     ts = rospy.Time.now()
                     # generate msgs
                     for t, config in type_config_map.items():
-                        self.type_msg_map[t] = config[0].create_msg(
-                            ts, *config[1])
+                        self.type_msg_map[t] = config[0].create_msg(ts, *config[1])
                     # update msgs with objs
                     for _, obj in self.objects.items():
                         obj.draw(self.type_msg_map[obj.type])
@@ -72,7 +70,7 @@ class Visualizer:
                 self.rate.sleep()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         vis = Visualizer()
         vis.draw()
